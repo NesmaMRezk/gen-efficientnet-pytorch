@@ -187,7 +187,7 @@ class DepthwiseSeparableConv(nn.Module):
         return x
 
 
-lass InvertedResidual_n(nn.Module):
+class InvertedResidual(nn.Module):
     """ Inverted residual block w/ optional SE"""
 
     def __init__(self, in_chs, out_chs, dw_kernel_size=3,
@@ -195,7 +195,7 @@ lass InvertedResidual_n(nn.Module):
                  exp_ratio=1.0, exp_kernel_size=1, pw_kernel_size=1,
                  se_ratio=0., se_kwargs=None, norm_layer=nn.BatchNorm2d, norm_kwargs=None,
                  conv_kwargs=None, drop_connect_rate=0.):
-        super(InvertedResidual_n, self).__init__()
+        super(InvertedResidual, self).__init__()
         norm_kwargs = norm_kwargs or {}
         conv_kwargs = conv_kwargs or {}
         mid_chs: int = make_divisible(in_chs * exp_ratio)
