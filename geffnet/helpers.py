@@ -38,7 +38,7 @@ def load_pretrained(model, url, filter_fn=None, strict=True):
     state_dict = load_state_dict_from_url(url, progress=False, map_location='cpu')
 
     # Handle modified layers
-    modified_layers = ['layer1', 'layer2']  # Add the names of your modified layers here
+    modified_layers = ['blocks.1.1.conv1d.weight', 'blocks.1.0.conv1d.weight','blocks.2.0.conv1d.weight','blocks.2.1.conv1d.weight','blocks.3.0.conv1d.weight','blocks.3.1.conv1d.weight','blocks.4.0.conv1d.weight','blocks.4.1.conv1d.weight','blocks.4.2.conv1d.weight']  # Add the names of your modified layers here
     for layer_name in modified_layers:
         layer_state_dict = state_dict.get(layer_name, None)
         if layer_state_dict is not None:
