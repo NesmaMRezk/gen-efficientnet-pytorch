@@ -100,7 +100,7 @@ def load_pretrained_corrupted(model, url, filter_fn=None, strict=True):
     model.load_state_dict(state_dict, strict=strict)
 
 def load_pretrained(model, url, filter_fn=None, strict=True):
-   modified_layers = ['blocks.1.1.conv1d.weight', 'blocks.1.0.conv1d.weight',
+    modified_layers = ['blocks.1.1.conv1d.weight', 'blocks.1.0.conv1d.weight',
                        'blocks.2.0.conv1d.weight', 'blocks.2.1.conv1d.weight',
                        'blocks.3.0.conv1d.weight', 'blocks.3.1.conv1d.weight',
                        'blocks.4.0.conv1d.weight', 'blocks.4.1.conv1d.weight',
