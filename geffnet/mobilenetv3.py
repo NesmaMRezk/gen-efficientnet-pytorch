@@ -196,7 +196,7 @@ def _gen_mobilenet_v3(variant, channel_multiplier=1.0, pretrained=False, **kwarg
                 ['cn_r1_k1_s1_c576'],
             ]
         else:
-            act_layer = 'hard_swish'
+            act_layer = 'relu'
             arch_def = [
                 # stage 0, 112x112 in
                 ['ds_r1_k3_s2_e1_c16_se0.25_nre'],  # relu
@@ -232,7 +232,7 @@ def _gen_mobilenet_v3(variant, channel_multiplier=1.0, pretrained=False, **kwarg
                 ['cn_r1_k1_s1_c960'],
             ]
         else:
-            act_layer = 'hard_swish'
+            act_layer = 'relu'
             arch_def = [
                 # stage 0, 112x112 in
                 ['ds_r1_k3_s1_e1_c16_nre'],  # relu
