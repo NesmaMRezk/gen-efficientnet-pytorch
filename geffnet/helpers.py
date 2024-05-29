@@ -51,6 +51,7 @@ def load_pretrained(model, url, filter_fn=None, strict=True):
 
     # Handle unchanged layers
     unchanged_layers = set(state_dict.keys()) - set(modified_layers)
+    print(unchanged_layers)
     for layer_name in unchanged_layers:
         if hasattr(model, layer_name):
             model_layer = getattr(model, layer_name)
