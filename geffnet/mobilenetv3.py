@@ -54,7 +54,7 @@ class MobileNetV3(nn.Module):
     Paper: https://arxiv.org/abs/1905.02244
     """
 
-    def __init__(self, block_args, num_classes=1000, in_chans=3, stem_size=16, num_features=1280, head_bias=True,
+    def __init__(self, block_args, num_classes=1000, in_chans=, stem_size=16, num_features=1280, head_bias=True,
                  channel_multiplier=1.0, pad_type='', act_layer=nn.ReLU, drop_rate=0., drop_connect_rate=0.,
                  se_kwargs=None, norm_layer=nn.BatchNorm2d, norm_kwargs=None, weight_init='goog'):
         super(MobileNetV3, self).__init__()
