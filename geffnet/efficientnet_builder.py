@@ -250,16 +250,16 @@ class InvertedResidual(nn.Module):
         if self.has_residual:
             if self.drop_connect_rate > 0.:
                 x = drop_connect(x, self.training, self.drop_connect_rate)
-            print("hello before workaround "+str(residual.size()) + "  "+ str(x.size()))
+            #print("hello before workaround "+str(residual.size()) + "  "+ str(x.size()))
            # x += residual
             concatenated = torch.cat([x, residual], dim=1)  # Concatenate along the channel dimension
-            print("hello during workaround "+str(concatenated.size()) +"  "+ str(concatenated.type()))
+            #print("hello during workaround "+str(concatenated.size()) +"  "+ str(concatenated.type()))
            # x += residual
             ch=x.size(1)
             conv = nn.Conv2d(ch*2, ch, kernel_size=1)
             x= self.conv1d(concatenated)  # Apply 1x1 convolution
 
-            print("hello after workaround "+str(x.size()))
+            #print("hello after workaround "+str(x.size()))
 
 
 
