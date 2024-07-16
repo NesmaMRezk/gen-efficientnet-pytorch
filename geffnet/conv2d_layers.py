@@ -15,7 +15,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
+import tltorch
 from .config import *
 
 
@@ -301,5 +301,6 @@ def select_conv2d(in_chs, out_chs, kernel_size, **kwargs):
             m = CondConv2d(in_chs, out_chs, kernel_size, groups=groups, **kwargs)
         else:
             m = create_conv2d_pad(in_chs, out_chs, kernel_size, groups=groups, **kwargs)
+    m= tltorch.FactorizedConv.from_conv(m, rank=1, decompose_weights=True, factorization='tucker')        
     print(m)        
     return m
