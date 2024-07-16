@@ -201,16 +201,16 @@ class InvertedResidual(nn.Module):
         mid_chs: int = make_divisible(in_chs * exp_ratio)
         self.has_residual = (in_chs == out_chs and stride == 1) and not noskip
         self.drop_connect_rate = drop_connect_rate
-        self.conv1d= select_conv2d(out_chs*2, out_chs, 1, padding=pad_type, **conv_kwargs)
+        self.conv1d= select_conv2d(out_chs*2, out_chs, 1, padding=pad_type,rank=0.25, **conv_kwargs)
 
         # Point-wise expansion
-        self.conv_pw = select_conv2d(in_chs, mid_chs, exp_kernel_size, padding=pad_type,rank=0.5, **conv_kwargs)
+        self.conv_pw = select_conv2d(in_chs, mid_chs, exp_kernel_size, padding=pad_type,rank=0.25, **conv_kwargs)
         self.bn1 = norm_layer(mid_chs, **norm_kwargs)
         self.act1 = act_layer(inplace=True)
 
         # Depth-wise convolution
         self.conv_dw = select_conv2d(
-            mid_chs, mid_chs, dw_kernel_size, stride=stride, padding=pad_type, depthwise=True,rank=0.5, **conv_kwargs)
+            mid_chs, mid_chs, dw_kernel_size, stride=stride, padding=pad_type, depthwise=True,rank=0.25, **conv_kwargs)
         self.bn2 = norm_layer(mid_chs, **norm_kwargs)
         self.act2 = act_layer(inplace=True)
 
@@ -222,7 +222,7 @@ class InvertedResidual(nn.Module):
             self.se = nn.Identity()  # for jit.script compat
 
         # Point-wise linear projection
-        self.conv_pwl = select_conv2d(mid_chs, out_chs, pw_kernel_size, padding=pad_type, **conv_kwargs)
+        self.conv_pwl = select_conv2d(mid_chs, out_chs, pw_kernel_size, padding=pad_type, rank=0.25,**conv_kwargs)
         self.bn3 = norm_layer(out_chs, **norm_kwargs)
 
 
