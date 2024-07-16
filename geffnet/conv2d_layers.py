@@ -301,4 +301,5 @@ def select_conv2d(in_chs, out_chs, kernel_size, **kwargs):
             m = CondConv2d(in_chs, out_chs, kernel_size, groups=groups, **kwargs)
         else:
             m = create_conv2d_pad(in_chs, out_chs, kernel_size, groups=groups, **kwargs)
+    print(m)        
     return m
