@@ -287,7 +287,7 @@ class CondConv2d(nn.Module):
         return out
 
 
-def select_conv2d(in_chs, out_chs, kernel_size, **kwargs):
+def select_conv2d(in_chs, out_chs, kernel_size,rank=1, **kwargs):
     assert 'groups' not in kwargs  # only use 'depthwise' bool arg
     if isinstance(kernel_size, list):
         assert 'num_experts' not in kwargs  # MixNet + CondConv combo not supported currently
@@ -301,6 +301,6 @@ def select_conv2d(in_chs, out_chs, kernel_size, **kwargs):
             m = CondConv2d(in_chs, out_chs, kernel_size, groups=groups, **kwargs)
         else:
             m = create_conv2d_pad(in_chs, out_chs, kernel_size, groups=groups, **kwargs)
-    m= tltorch.FactorizedConv.from_conv(m, rank=1, decompose_weights=True, factorization='tucker')        
+    m= tltorch.FactorizedConv.from_conv(m, rank=rank, decompose_weights=True, factorization='tucker')        
     print(m)        
     return m
