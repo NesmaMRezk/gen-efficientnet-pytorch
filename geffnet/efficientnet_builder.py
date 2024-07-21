@@ -106,9 +106,11 @@ class SqueezeExcite(nn.Module):
     def __init__(self, in_chs, se_ratio=0.25, reduced_base_chs=None, act_layer=nn.ReLU, gate_fn=sigmoid, divisor=1):
         super(SqueezeExcite, self).__init__()
         reduced_chs = make_divisible((reduced_base_chs or in_chs) * se_ratio, divisor)
-        self.conv_reduce = tltorch.FactorizedConv.from_conv( nn.Conv2d(in_chs, reduced_chs, 1, bias=True), rank=0.25, decompose_weights=True, factorization='tucker')   
+        self.conv_reduce = nn.Conv2d(in_chs, reduced_chs, 1, bias=True)
+        #self.conv_reduce = tltorch.FactorizedConv.from_conv( nn.Conv2d(in_chs, reduced_chs, 1, bias=True), rank=0.25, decompose_weights=True, factorization='tucker')   
         self.act1 = act_layer(inplace=True)
-        self.conv_expand = tltorch.FactorizedConv.from_conv( nn.Conv2d(reduced_chs, in_chs, 1, bias=True), rank=0.25, decompose_weights=True, factorization='tucker') 
+        self.conv_expand = nn.Conv2d(reduced_chs, in_chs, 1, bias=True)
+        #self.conv_expand = tltorch.FactorizedConv.from_conv( nn.Conv2d(reduced_chs, in_chs, 1, bias=True), rank=0.25, decompose_weights=True, factorization='tucker') 
         self.gate_fn = gate_fn
 
     def forward(self, x):
