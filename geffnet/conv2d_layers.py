@@ -301,7 +301,7 @@ def select_conv2d(in_chs, out_chs, kernel_size,rank=1, **kwargs):
             m = CondConv2d(in_chs, out_chs, kernel_size, groups=groups, **kwargs)
         else:
             m = create_conv2d_pad(in_chs, out_chs, kernel_size, groups=groups, **kwargs)
-    #if rank!=1:
-    #    m= tltorch.FactorizedConv.from_conv(m, rank=rank, decompose_weights=True, factorization='tucker')        
+    if rank<1:
+        m= tltorch.FactorizedConv.from_conv(m, rank=rank, decompose_weights=True, factorization='tucker')        
     print(m)        
     return m
