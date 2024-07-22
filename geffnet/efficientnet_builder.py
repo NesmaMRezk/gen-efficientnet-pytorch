@@ -213,7 +213,7 @@ class InvertedResidual(nn.Module):
 
         # Depth-wise convolution
         self.conv_dw = select_conv2d(
-            mid_chs, mid_chs, dw_kernel_size, stride=stride, padding=pad_type, depthwise=True,rank=0.25, **conv_kwargs)
+            mid_chs, mid_chs, dw_kernel_size, stride=stride, padding=pad_type, depthwise=True,rank=1, **conv_kwargs)
         self.bn2 = norm_layer(mid_chs, **norm_kwargs)
         self.act2 = act_layer(inplace=True)
 
